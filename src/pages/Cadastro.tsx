@@ -16,7 +16,6 @@ export default function Cadastro() {
     password: '',
     confirmPassword: '',
     tipo: 'cliente' as 'cliente' | 'empresa',
-    descricao: '',
     categoria: 'Geral'
   })
   const [loading, setLoading] = useState(false)
@@ -67,17 +66,23 @@ export default function Cadastro() {
         formData.password,
         formData.nome,
         formData.tipo,
-        formData.descricao,
+        '',
         formData.categoria
       )
 
       if (error) {
-        setError(t('register.createError') + ': ' + error.message)
+        const errorMessage = typeof error === 'object' && error !== null && 'message' in error
+          ? String((error as { message: string }).message)
+          : String(error)
+        setError(t('register.createError') + ': ' + errorMessage)
       } else {
         navigate('/')
       }
-    } catch {
-      setError(t('register.createError'))
+    } catch (err) {
+      const errorMessage = typeof err === 'object' && err !== null && 'message' in err
+        ? String((err as { message: string }).message)
+        : String(err)
+      setError(t('register.createError') + ': ' + errorMessage)
     } finally {
       setLoading(false)
     }
@@ -124,42 +129,27 @@ export default function Cadastro() {
               </div>
 
               {formData.tipo === 'empresa' && (
-                <>
-                  <div className="form-group">
-                    <label htmlFor="descricao">Descrição da Empresa</label>
-                    <textarea
-                      id="descricao"
-                      name="descricao"
-                      value={formData.descricao}
-                      onChange={(e) => setFormData({...formData, descricao: e.target.value})}
-                      rows={3}
-                      placeholder="Descreva os serviços e diferenciais da sua empresa"
-                      className="form-textarea"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="categoria">Categoria</label>
-                    <select
-                      id="categoria"
-                      name="categoria"
-                      value={formData.categoria}
-                      onChange={handleChange}
-                      required
-                    >
-                      <option value="Geral">Geral</option>
-                      <option value="Barbearia">Barbearia</option>
-                      <option value="Salão de Beleza">Salão de Beleza</option>
-                      <option value="Estética">Estética</option>
-                      <option value="Spa">Spa</option>
-                      <option value="Odontologia">Odontologia</option>
-                      <option value="Academia">Academia</option>
-                      <option value="Clínica">Clínica</option>
-                      <option value="Restaurante">Restaurante</option>
-                      <option value="Outros">Outros</option>
-                    </select>
-                  </div>
-                </>
+                <div className="form-group">
+                  <label htmlFor="categoria">Categoria</label>
+                  <select
+                    id="categoria"
+                    name="categoria"
+                    value={formData.categoria}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="Geral">Geral</option>
+                    <option value="Barbearia">Barbearia</option>
+                    <option value="Salão de Beleza">Salão de Beleza</option>
+                    <option value="Estética">Estética</option>
+                    <option value="Spa">Spa</option>
+                    <option value="Odontologia">Odontologia</option>
+                    <option value="Academia">Academia</option>
+                    <option value="Clínica">Clínica</option>
+                    <option value="Restaurante">Restaurante</option>
+                    <option value="Outros">Outros</option>
+                  </select>
+                </div>
               )}
 
               <div className="form-group">
