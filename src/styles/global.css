@@ -429,13 +429,12 @@ body {
 @media (max-width: 768px) {
   .notification-panel {
     position: fixed;
-    top: auto;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    max-height: 70vh;
-    border-radius: 16px 16px 0 0;
+    top: 60px;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-height: calc(100vh - 80px);
+    border-radius: 12px;
   }
 
   .notification-button {
@@ -943,9 +942,7 @@ body {
 }
 
 .form-group input,
-.form-group select,
-.form-group textarea,
-.form-textarea {
+.form-group select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #333333;
@@ -954,21 +951,15 @@ body {
   color: #ffffff;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  resize: vertical;
 }
 
 .form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus,
-.form-textarea:focus {
+.form-group select:focus {
   outline: none;
   border-color: #ffffff;
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder,
-.form-textarea::placeholder {
+.form-group input::placeholder {
   color: #888888;
 }
 
